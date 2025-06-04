@@ -50,10 +50,10 @@ def main():
 	for manga_id, status in statuses_data.items():
 		manga_lists[status].append(manga_id)
 
-	for status, manga in manga_lists.items():  # noqa: PLR1702
+	for status, manga_ids in manga_lists.items():  # noqa: PLR1702
 		print(f"{status}:")
 		# split up the list to prevent 414 errors
-		for sub_list in chunk(manga, 100):
+		for sub_list in chunk(manga_ids, 100):
 			ratings_data = client.get(
 				"/rating", params=[("manga[]", manga_id) for manga_id in sub_list]
 			)["ratings"]
